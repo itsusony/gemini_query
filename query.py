@@ -2,6 +2,7 @@ from google import genai
 import argparse, os, re
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+MODEL_NAME = "gemini-2.0-flash"
 if not GEMINI_API_KEY: raise ValueError("GEMINI_API_KEY not set")
 
 parser = argparse.ArgumentParser()
@@ -38,5 +39,5 @@ file_content = "\n".join([f"path: {f['path']}\ncontent: {f['content']}\n"
 if args.dry_run: exit(0)
 
 print(genai.Client(api_key=GEMINI_API_KEY).models.generate_content(
-    model="gemini-2.0-flash",
+    model=MODEL_NAME,
     contents=[args.query, file_content]).text)
